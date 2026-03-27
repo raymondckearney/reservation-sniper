@@ -24,3 +24,8 @@ def add_target(target: dict):
     db.add(t)
     db.commit()
     return {"status": "ok"}
+@app.on_event("startup")
+def start_worker():
+    thread = threading.Thread(target=run)
+    thread.daemon = True
+    thread.start()
